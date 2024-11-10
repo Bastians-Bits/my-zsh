@@ -62,3 +62,7 @@ alias ll="eza -l -g -a --icons"
 alias lt="eza -l -g -a --icons -T"
 alias ls="eza --icons"
 ```
+
+## Neovim
+
+Somtime nano is just not cool enough. WIP
