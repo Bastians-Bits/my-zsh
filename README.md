@@ -5,6 +5,8 @@ Installation Guide to setup my Z-Shell
 
 If not already part of your distribution, install Zsh using your package manager.
 
+Run `chsh -s /bin/zsh` to switch your shell permanently.
+
 ## Install NerdFonts
 
 For Theme to work correctly it requires [NerdFonts](https://www.nerdfonts.com). I usually use [MesloLG Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip). The exactly install instruction can differ based on your OS and Terminal.
