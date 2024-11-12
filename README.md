@@ -1,5 +1,5 @@
 # my-zsh
-Installation Guide to setup my Z-Shell
+Installation Guide for my Z-Shell setup.
 
 <img width="1494" alt="Screenshot 2024-11-12 at 23 13 35" src="https://github.com/user-attachments/assets/fd94c9f5-68f9-4f2d-9f18-5450868166eb">
 
