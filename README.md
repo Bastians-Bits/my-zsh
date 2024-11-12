@@ -1,6 +1,8 @@
 # my-zsh
 Installation Guide to setup my Z-Shell
 
+<img width="1494" alt="Screenshot 2024-11-12 at 23 13 35" src="https://github.com/user-attachments/assets/fd94c9f5-68f9-4f2d-9f18-5450868166eb">
+
 ## Install Zsh
 
 If not already part of your distribution, install Zsh using your package manager.
@@ -9,7 +11,7 @@ Run `chsh -s /bin/zsh` to switch your shell permanently.
 
 ## Install NerdFonts
 
-For Theme to work correctly it requires [NerdFonts](https://www.nerdfonts.com). I usually use [MesloLG Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip). The exactly install instruction can differ based on your OS and Terminal.
+Most Themes require [NerdFonts](https://www.nerdfonts.com) to work correctly. I usually use [MesloLG Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip). The exactly installation instructions can differ based on your OS and Terminal.
 
 ## Install Oh-My-Zsh
 
@@ -23,7 +25,7 @@ Make sure to restart your Terminal after you've set the Theme and configure it t
 
 ## Install Plugins
 
-~~Stolen~~ Inspired by [this](https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df) instructions. I am going to copy them in case the link breaks.
+~~Stolen~~ Inspired by [this](https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df) set of instructions. I am going to copy them in case the link breaks.
 
 <details>
 <summary>Commands</summary>
@@ -57,7 +59,7 @@ Enable the plugins using `plugins=(git zsh-autosuggestions zsh-syntax-highlighti
 
 ## Eza
 
-ls on steriods. Install it based on your distribution. Add alias.zsh to your ~/.oh-my-zsh/custom containing
+`ls` on steriods. Check your package manager if it is available. Add alias.zsh to your ~/.oh-my-zsh/custom containing
 
 ```
 alias ll="eza -l -g -a --icons"
