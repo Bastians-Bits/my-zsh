@@ -1,11 +1,11 @@
 # my-zsh
-Installation Guide for my Z-Shell setup.
-
-<img width="1494" alt="Screenshot 2024-11-12 at 23 13 35" src="https://github.com/user-attachments/assets/fd94c9f5-68f9-4f2d-9f18-5450868166eb">
+Installation Guide for my Z-Shell setup, including oh-my-zsh, themes, auto-completion for various tools (I use), neovim and some faster alternatives to built-ins.
 
 ## Install Zsh
 
 If not already part of your distribution, install Zsh using your package manager.
+
+![zsh](./gifs/zsh.gif)
 
 Run `chsh -s /bin/zsh` to switch your shell permanently.
 
