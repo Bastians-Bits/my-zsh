@@ -1,13 +1,21 @@
 # my-zsh
 Installation Guide for my Z-Shell setup, including oh-my-zsh, themes, auto-completion for various tools (I use), neovim and some faster alternatives to built-ins.
 
+| :exclamation:  All instructions are executed using Ubuntu and apt, commands may vary for your distribution. |
+|-------------------------------------------------------------------------------------------------------------|
+
+> [!NOTE]
+> You will see some commands with slightly different arguments. This is usually only to not mess with the recording, e.g. remove progress bars.
+
 ## Install Zsh
 
 If not already part of your distribution, install Zsh using your package manager.
 
+``` shell
+sudo apt-get install zsh -y
+chsh -s /bin/zsh
+```
 ![zsh](./gifs/zsh.gif)
-
-Run `chsh -s /bin/zsh` to switch your shell permanently.
 
 ## Install NerdFonts
 
