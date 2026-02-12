@@ -14,6 +14,8 @@ If not already part of your distribution, install Zsh using your package manager
 ``` shell
 sudo apt-get install zsh -y
 chsh -s /bin/zsh
+zsh
+0
 ```
 ![zsh](./gifs/zsh.gif)
 
