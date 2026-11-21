@@ -1,0 +1,50 @@
+- name: Install neovim
+  hosts: localhost
+  tasks:
+  #############################################################################
+  # Neovim
+  #############################################################################
+  - name: Install glibc
+    become: true 
+    ansible.builtin.package:
+      name: glibc
+      state: present
+
+  - name: Download Neovim x86_64
+    ansible.builtin.get_url:
+      url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+      dest: "{{ ansible_env.HOME }}/nvim-linux.tar.gz"
+      mode: '0440'
+    when: ansible_facts['architecture'] == "x86_64"
+
+  - name: Download Neovim arm64
+    ansible.builtin.get_url:
+      url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz
+      dest: "{{ ansible_env.HOME }}/nvim-linux.tar.gz"
+      mode: '0440'
+    when: ansible_facts['architecture'] == "arm64" or ansible_facts['architecture'] == "aarch64"
+
+  - name: Delete old nvim
+    become: true
+    ansible.builtin.file:
+      state: absent
+    path: "/opt/nvim"
+
+  - name: Create neovim Directory
+    become: true
+    ansible.builtin.file:
+      state: directory
+      path: "/opt/nvim"
+
+  - name: Unzip neovim
+    become: true
+    ansible.builtin.unarchive:
+      src: "{{ ansible_env.HOME }}/nvim-linux.tar.gz"
+      dest: "/opt/nvim"
+      extra_opts: ['--strip-components=1', '--show-stored-names']
+    
+  - name: Add to path
+    ansible.builtin.lineinfile:
+      path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/path.zsh"
+      search_string: "path+=('/opt/nvim/bin')"
+      line: path+=('/opt/nvim/bin')
