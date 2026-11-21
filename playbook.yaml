@@ -1,0 +1,4 @@
+- import_playbook: playbooks/tools.yaml
+#- import_playbook: playbooks/nerdfonts.yaml
+- import_playbook: playbooks/oh-my-zsh.yaml
+- import_playbook: playbooks/powerlevel10k.yaml
