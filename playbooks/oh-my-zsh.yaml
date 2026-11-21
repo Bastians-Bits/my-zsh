@@ -102,6 +102,11 @@
           # Disable the pager (less) so we can scroll using the tty
           command bat --paging=never "$@"
         }
+
+  - name: Create path
+    ansible.builtin.copy:
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/path.zsh"
+      content: ""
   
   - name: Configure autocomplete
     ansible.builtin.lineinfile:
