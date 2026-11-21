@@ -1,0 +1,49 @@
+- name: Install Nerdfonts
+  hosts: localhost
+  tasks:
+  #############################################################################
+  # Nerdfonts (if the Terminal is part of the Linux System)
+  #############################################################################
+  - name: Download Nerdfonts
+    ansible.builtin.get_url:
+      url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Meslo.zip
+      dest: "{{ ansible_env.HOME }}/Meslo.zip"
+      mode: '0440'
+
+  - name: Create Nerfonts Directory
+    ansible.builtin.file:
+      state: directory
+      path: "{{ ansible_env.HOME }}/Meslo"
+
+  - name: Unzip Nerdfonts
+    ansible.builtin.unarchive:
+      src: "{{ ansible_env.HOME }}/Meslo.zip"
+      dest: "{{ ansible_env.HOME }}/Meslo"
+
+  - name: Create Nerfonts Directory
+    ansible.builtin.file:
+      state: directory
+      path: "{{ ansible_env.HOME }}/.local/share/fonts"
+
+  - name: Delete old Nerdfonts
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/.local/share/fonts/Meslo"
+
+  - name: Copy Nerdfonts
+    ansible.builtin.copy:
+      src: "{{ ansible_env.HOME }}/Meslo"
+      dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+
+  - name: Update Fonts cache
+    ansible.builtin.shell: fc-cache -f -v
+
+  - name: Delete Nerdfonts Zip
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/Meslo.zip"
+
+  - name: Delete Nerdfonts Unzip
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/Meslo"
