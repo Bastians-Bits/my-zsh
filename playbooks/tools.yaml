@@ -1,0 +1,23 @@
+- name: Install shell tools
+  hosts: localhost
+  tasks:
+  #############################################################################
+  # Tools
+  #############################################################################
+  - name: Install eza
+    become: true 
+    ansible.builtin.package:
+      name: eza
+      state: present
+ 
+  - name: Install bat
+    become: true 
+    ansible.builtin.package:
+      name: bat
+      state: present
+  
+  - name: Install kitty
+    become: true 
+    ansible.builtin.package:
+      name: kitty
+      state: present
