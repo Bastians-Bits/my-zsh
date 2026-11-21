@@ -1,0 +1,111 @@
+- name: Byte Shell Installation
+  hosts: localhost
+  tasks:
+  #############################################################################
+  # Shell Setup
+  #############################################################################
+  - name: Install zsh
+    become: true
+    ansible.builtin.package:
+      name: zsh
+      state: present
+
+  # Cleanup
+  - name: Delete zshrc
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/.zshrc"
+    
+  - name: Delete oh-my-zsh
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+
+  # Oh-my-shell installation
+  - name: Delete oh-my-zsh
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/install.sh"
+
+  - name: Download Oh-my-zsh installer
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+      dest: "{{ ansible_env.HOME }}/install.sh"
+      mode: '0440'
+
+  - name: Install Oh-my-zsh
+    ansible.builtin.shell: "chmod +x {{ ansible_env.HOME }}/install.sh && {{ ansible_env.HOME }}/install.sh --unattended"
+
+  - name: Delete oh-my-zsh
+    ansible.builtin.file:
+      state: absent
+      path: "{{ ansible_env.HOME }}/install.sh"
+
+  # Plugins
+  - name: Checkout zsh-autosuggestions
+    ansible.builtin.git:
+      repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+  - name: Checkout zsh-syntax-highlighting
+    ansible.builtin.git:
+      repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  
+  - name: Checkout fast-syntax-highlighting
+    ansible.builtin.git:
+      repo: "https://github.com/zdharma-continuum/fast-syntax-highlighting.git"
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/fast-syntax-highlighting"
+
+  - name: Checkout zsh-autocomplete
+    ansible.builtin.git:
+      repo: "https://github.com/marlonrichert/zsh-autocomplete.git"
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete"
+
+  - name: Configure omz plugins
+    ansible.builtin.lineinfile:
+      path: "{{ ansible_env.HOME }}/.zshrc"
+      regexp: '^plugins='
+      line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete web-search dotnet docker)
+    
+  - name: Create alias
+    ansible.builtin.copy:
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/alias.zsh"
+      content: |
+        alias ll="eza -l -g -a --icons"
+        alias lt="eza -l -g -a --icons -T"
+        alias ls="eza --icons"
+
+  - name: Create styles
+    ansible.builtin.copy:
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/styles.zsh"
+      content: |
+        zstyle ':autocomplete:*' min-input 3
+
+  - name: Create functions
+    ansible.builtin.copy:
+      dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/functions.zsh"
+      content: |
+        docker() {
+          if [[ "$@" == volumes* ]]; then
+            shift
+            command docker volume ls "$@"
+          elif [[ "$@" == networks* ]]; then
+            shift
+            command docker network ls "$@"
+          else
+            command docker "$@"
+          fi
+        }
+
+        bat() {
+          # Disable the pager (less) so we can scroll using the tty
+          command bat --paging=never "$@"
+        }
+  
+  - name: Configure autocomplete
+    ansible.builtin.lineinfile:
+      path: "{{ ansible_env.HOME }}/.zshrc"
+      insertbefore: BOF
+      line: |
+        source {{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
