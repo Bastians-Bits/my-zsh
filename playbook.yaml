@@ -2,3 +2,4 @@
 #- import_playbook: playbooks/nerdfonts.yaml
 - import_playbook: playbooks/oh-my-zsh.yaml
 - import_playbook: playbooks/powerlevel10k.yaml
+- import_playbook: playbooks/neovim.yaml
