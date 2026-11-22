@@ -61,7 +61,7 @@
     ansible.builtin.git:
       repo: "https://github.com/marlonrichert/zsh-autocomplete.git"
       dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete"
-      version: 762afacbf227ecd173e899d10a28a478b4c84a3f # ToDo: Figure out why that commit autocompletes on space!!!
+      version: 027cdab14451e98c9d36d72b1f79d9488ac88e46 # ToDo: Figure out why that commit autocompletes on space!!!
 
   - name: Configure omz plugins
     ansible.builtin.lineinfile:
