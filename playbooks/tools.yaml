@@ -21,3 +21,9 @@
     ansible.builtin.package:
       name: kitty
       state: present
+
+  - name: Install fuzzy search
+    become: true 
+    ansible.builtin.package:
+      name: fzf
+      state: present

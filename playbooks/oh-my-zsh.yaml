@@ -61,12 +61,13 @@
     ansible.builtin.git:
       repo: "https://github.com/marlonrichert/zsh-autocomplete.git"
       dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete"
+      version: 762afacbf227ecd173e899d10a28a478b4c84a3f # ToDo: Figure out why that commit autocompletes on space!!!
 
   - name: Configure omz plugins
     ansible.builtin.lineinfile:
       path: "{{ ansible_env.HOME }}/.zshrc"
       regexp: '^plugins='
-      line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete web-search dotnet docker)
+      line: plugins=(git zsh-syntax-highlighting zsh-autocomplete zsh-interactive-cd web-search dotnet docker)
     
   - name: Create alias
     ansible.builtin.copy:
@@ -80,7 +81,7 @@
     ansible.builtin.copy:
       dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/styles.zsh"
       content: |
-        zstyle ':autocomplete:*' min-input 3
+        zstyle    ':autocomplete:*'        min-input 3
 
   - name: Create functions
     ansible.builtin.copy:
@@ -102,7 +103,7 @@
           # Disable the pager (less) so we can scroll using the tty
           command bat --paging=never "$@"
         }
-
+  
   - name: Create path
     ansible.builtin.copy:
       dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/path.zsh"

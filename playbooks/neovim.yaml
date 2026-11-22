@@ -28,7 +28,7 @@
     become: true
     ansible.builtin.file:
       state: absent
-    path: "/opt/nvim"
+      path: "/opt/nvim"
 
   - name: Create neovim Directory
     become: true
