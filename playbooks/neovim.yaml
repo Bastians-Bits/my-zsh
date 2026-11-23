@@ -4,11 +4,29 @@
   #############################################################################
   # Neovim
   #############################################################################
-  - name: Install glibc
+
+  - name: Get Distro
+    ansible.builtin.shell: cat /etc/*-release | grep -e '^NAME=' | tr -d 'NAME=' | tr -d '"'
+    register: desktop_environment
+
+  - name: Example using fail and when together
+    ansible.builtin.fail:
+      msg: Could not determin the current distro
+    when: desktop_environment.stdout == ""
+
+  - name: Install glibc (Ubuntu)
+    become: true 
+    ansible.builtin.package:
+      name: libc6
+      state: present
+    when: desktop_environment.stdout == "Ubuntu"
+
+  - name: Install glibc (Other)
     become: true 
     ansible.builtin.package:
       name: glibc
       state: present
+    when: desktop_environment.stdout != "Ubuntu"
 
   - name: Download Neovim x86_64
     ansible.builtin.get_url:

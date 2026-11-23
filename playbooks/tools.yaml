@@ -16,11 +16,16 @@
       name: bat
       state: present
   
+  - name: Get Desktop Environment
+    ansible.builtin.shell: "echo $XDG_CURRENT_DESKTOP"
+    register: desktop_environment
+
   - name: Install kitty
     become: true 
     ansible.builtin.package:
       name: kitty
       state: present
+    when: desktop_environment.stdout != ""
 
   - name: Install fuzzy search
     become: true 
